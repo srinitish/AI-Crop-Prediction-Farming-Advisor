@@ -1,0 +1,10 @@
+langgraph
+langchain
+langchain-core
+langchain-groq
+requests
+joblib
+scikit-learn
+python-dotenv
+typing-extensions
+streamlit
