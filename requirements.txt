@@ -8,4 +8,6 @@ scikit-learn
 python-dotenv
 typing-extensions
 streamlit
-get_geolocation
+streamlit-js-eval
+pydeck
+pandas
