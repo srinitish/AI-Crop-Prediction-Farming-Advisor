@@ -8,3 +8,4 @@ scikit-learn
 python-dotenv
 typing-extensions
 streamlit
+get_geolocation
