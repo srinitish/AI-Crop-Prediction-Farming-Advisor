@@ -27,32 +27,30 @@ ph = st.sidebar.number_input("Soil pH", 0.0, 14.0, 6.5)
 
 col1, col2 = st.columns([3,1])
 
+# LOCATION BUTTON
+col1, col2 = st.columns([3,1])
+
 with col1:
-    track = st.button("📍 Track My Location")
+        loc = get_geolocation()
 
-if track:
-    loc = get_geolocation()
+        if loc is not None:
 
-    if loc and "coords" in loc:
-        lat = loc["coords"]["latitude"]
-        lon = loc["coords"]["longitude"]
+            lat = loc["coords"]["latitude"]
+            lon = loc["coords"]["longitude"]
 
-        st.session_state["lat"] = lat
-        st.session_state["lon"] = lon
+            st.session_state.lat = lat
+            st.session_state.lon = lon
 
-        # Reverse geocode
-        url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json"
-        headers = {"User-Agent": "agri-ai-app"}
+            # Reverse geocode
+            url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json"
+            headers = {"User-Agent": "agri-ai-app"}
 
-        response = requests.get(url, headers=headers)
-        data = response.json()
+            res = requests.get(url, headers=headers).json()
 
-        address = data.get("display_name", "Location detected")
+            st.session_state.address = res.get("display_name","Location detected")
 
-        st.session_state["address"] = address
-
-    else:
-        st.error("Location permission required. Please allow location access.")
+        else:
+            st.warning("Please allow location permission in browser")
 
 # -------------------------
 # DISPLAY MAP
